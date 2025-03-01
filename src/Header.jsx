@@ -1,7 +1,6 @@
-import React from 'react'
 import imgUrl from './assets/chef-claude-icon.png'
 
-function Header() {
+export default function Header() {
   return (
     <header>
         <img src={imgUrl} alt="Chef-Claude" />
@@ -9,5 +8,3 @@ function Header() {
     </header>
   )
 }
-
-export default Header
