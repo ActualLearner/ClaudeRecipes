@@ -1,9 +1,11 @@
 import React from 'react'
+import imgUrl from './assets/chef-claude-icon.png'
 
 function Header() {
   return (
     <header>
-        <img src="./assets/chef-claude-icon.png" alt="" />
+        <img src={imgUrl} alt="Chef-Claude" />
+        <h1>Claude Recipes</h1>
     </header>
   )
 }
