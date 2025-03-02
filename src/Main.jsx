@@ -1,35 +1,26 @@
-import {useState} from 'react';
+import React from "react"
+import IngredientsList from "./components/IngredientsList"
+import ClaudeRecipe from "./components/ClaudeRecipe"
 
 export default function Main() {
-    const [ingredients, setIngredients] = useState(["Chicken", "Oregano", "Tomatoes"])
-    
-    const ingredientsListItems = ingredients.map(ingredient => (
-        <li key={ingredient}>{ingredient}</li>
-    ))
-    
-    /**
-     * Challenge:
-     * Add the new ingredient to the array of ingredients. Also, add a 
-     * console.log(ingredients) after adding the ingredient, because 
-     * **warning**: you aren't going to see the page update!
-     * 
-     * Hint: this is a one-liner solution, so don't overthink it 😅
-     */
+    const [ingredients, setIngredients] = React.useState(
+        ["all the main spices", "pasta", "ground beef", "tomato paste"]
+    )
+    const [recipeShown, setRecipeShown] = React.useState(false)
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget)
-        const newIngredient = formData.get("ingredient")
-        setIngredients(prev => (
-            [...prev, newIngredient]
-        ))
-        console.log(ingredients);
+    function toggleRecipeShown() {
+        setRecipeShown(prevShown => !prevShown)
     }
-    
+
+    function addIngredient(formData) {
+        const newIngredient = formData.get("ingredient")
+        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+    }
+
     return (
         <main>
-            <form onSubmit={handleSubmit} className="add-ingredient-form">
-                <input 
+            <form action={addIngredient} className="add-ingredient-form">
+                <input
                     type="text"
                     placeholder="e.g. oregano"
                     aria-label="Add ingredient"
@@ -37,9 +28,15 @@ export default function Main() {
                 />
                 <button>Add ingredient</button>
             </form>
-            <ul>
-                {ingredientsListItems}
-            </ul>
+
+            {ingredients.length > 0 &&
+                <IngredientsList
+                    ingredients={ingredients}
+                    toggleRecipeShown={toggleRecipeShown}
+                />
+            }
+
+            {recipeShown && <ClaudeRecipe />}
         </main>
     )
 }
