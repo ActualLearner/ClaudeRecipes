@@ -1,10 +1,10 @@
-import imgUrl from '../assets/chef-claude-icon.png'
+import imgUrl from '../assets/chef-gemini-icon.png'
 
 export default function Header() {
   return (
     <header>
-        <img src={imgUrl} alt="Chef-Claude" />
-        <h1>Claude Recipes</h1>
+        <img src={imgUrl} alt="Chef-Gemini" />
+        <h1>Recipe Generator</h1>
     </header>
   )
 }
