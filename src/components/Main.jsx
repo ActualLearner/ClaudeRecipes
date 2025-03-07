@@ -8,6 +8,13 @@ export default function Main() {
         ["all the main spices", "pasta", "ground beef", "tomato paste"]
     )
     const [recipe, setRecipe] = React.useState("")
+    const recipeSection = React.useRef(null)
+
+    React.useEffect(() => {
+        if(recipe !== "" && recipe !== null){
+            recipeSection.current.scrollIntoView({behavior: "smooth"})
+        }
+    }, [recipe])
 
     function getRecipe() {
         generateRecipe(ingredients)
@@ -34,6 +41,7 @@ export default function Main() {
 
             {ingredients.length > 0 &&
                 <IngredientsList
+                    ref={recipeSection}
                     ingredients={ingredients}
                     getRecipe={getRecipe}
                 />
