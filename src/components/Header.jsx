@@ -1,4 +1,4 @@
-import imgUrl from './assets/chef-claude-icon.png'
+import imgUrl from '../assets/chef-claude-icon.png'
 
 export default function Header() {
   return (
