@@ -2,12 +2,14 @@ import React, { useCallback } from "react"
 import IngredientsList from "./IngredientsList"
 import Recipe from "./Recipe"
 import generateRecipe from "../ai"
+import Loading from "./Loading"
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState(
         ["all the main spices", "pasta", "ground beef", "tomato paste"]
     )
     const [recipe, setRecipe] = React.useState("")
+    const [isLoading, setIsLoading] = React.useState()
     const recipeSection = React.useRef(null)
 
     React.useEffect(() => {
@@ -17,8 +19,12 @@ export default function Main() {
     }, [recipe])
 
     const getRecipe = useCallback(() => {
+        setIsLoading(true)
         generateRecipe(ingredients)
-            .then(res => setRecipe(res))
+            .then(res => {
+                setIsLoading(false)
+                return setRecipe(res)
+            })
             .catch(err => console.log(err))
     }, [ingredients])
 
@@ -48,6 +54,7 @@ export default function Main() {
             }
 
             {recipe && <Recipe recipe={recipe} />}
+            {isLoading && <Loading />}
         </main>
     )
 }
