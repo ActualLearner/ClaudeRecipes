@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import IngredientsList from "./IngredientsList"
 import Recipe from "./Recipe"
 import generateRecipe from "../ai"
@@ -11,21 +11,21 @@ export default function Main() {
     const recipeSection = React.useRef(null)
 
     React.useEffect(() => {
-        if(recipe !== "" && recipe !== null){
-            recipeSection.current.scrollIntoView({behavior: "smooth"})
+        if (recipe !== "" && recipe !== null) {
+            recipeSection.current.scrollIntoView({ behavior: "smooth" })
         }
     }, [recipe])
 
-    function getRecipe() {
+    const getRecipe = useCallback(() => {
         generateRecipe(ingredients)
             .then(res => setRecipe(res))
             .catch(err => console.log(err))
-    }
+    }, [ingredients])
 
-    function addIngredient(formData) {
+    const addIngredient = useCallback((formData) => {
         const newIngredient = formData.get("ingredient")
         setIngredients(prevIngredients => [...prevIngredients, newIngredient])
-    }
+    }, [])
 
     return (
         <main>
